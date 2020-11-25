@@ -1,0 +1,15 @@
+%% Get Gradient function:
+%
+function [Gx, Gy] = getGradient(input_image, sigma)
+    [gauss, ~] = Gaussian(sigma);
+    [gauss_deriv, ~] = Gaussian_Deriv(sigma);
+    gauss_deriv = flipud(gauss_deriv);
+    gauss_deriv = flip(gauss_deriv);
+    %Horizontal intensity
+    temp_horizontal = convolve(input_image, gauss');% temp horizontal cal.
+    Gx = convolve(temp_horizontal, gauss_deriv);% Horizontal gradient cal.
+    %Vertical intensity 
+    temp_vertical = convolve(input_image, gauss);
+    Gy = convolve(temp_vertical, gauss_deriv');% Vertical gradient cal.
+end
+
